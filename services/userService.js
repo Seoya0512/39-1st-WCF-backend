@@ -30,7 +30,7 @@ const signUp = async (
   return user;
 };
 
-const signIn = async (username, password, res) => {
+const signIn = async (username, password) => {
   validateUsername(username);
   validatePw(password);
 
@@ -39,7 +39,7 @@ const signIn = async (username, password, res) => {
   const is_match = await bcrypt.compare(password, user.password);
 
   if (!is_match) {
-    return raiseCustomError("INVALID USER", 401);
+    raiseCustomError("INVALID USER", 401);
   }
 
   const payLoad = { userId: user.id };

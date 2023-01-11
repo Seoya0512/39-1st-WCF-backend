@@ -50,12 +50,7 @@ const getProductDetail = async (productId) => {
 };
 
 const getProductList = async (params) => {
-  const {
-    limit = 10,
-    offset = 0,
-    sortMethod = "created_at",
-    ...filterOptions
-  } = params;
+  const { sortMethod = "created_at", ...filterOptions } = params;
 
   const whereClause = makeProductQueryBuilders(filterOptions);
   const orderbyClause = orderSet[sortMethod];

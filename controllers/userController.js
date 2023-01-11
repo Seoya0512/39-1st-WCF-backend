@@ -1,11 +1,11 @@
 const userService = require("../services/userService");
-const { catchAsync } = require("../utils/error");
+const { catchAsync, raiseCustomError } = require("../utils/error");
 
 const signUp = catchAsync(async (req, res) => {
   const { username, password, name, mobile_number, email, address } = req.body;
 
   if (!username || !password || !name || !mobile_number || !email || !address) {
-    return res.status(400).json({ message: "KEY_ERROR" });
+    raiseCustomError("KEY_ERROR", 400);
   }
 
   const result = await userService.signUp(
@@ -25,7 +25,7 @@ const signIn = catchAsync(async (req, res) => {
   const { username, password } = req.body;
 
   if (!username || !password) {
-    return res.status(400).json({ message: "KEY_ERROR" });
+    raiseCustomError("KEY_ERROR", 400);
   }
 
   const accessToken = await userService.signIn(username, password);

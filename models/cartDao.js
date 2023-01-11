@@ -23,15 +23,6 @@ const searchCartId = async (userId, productOptionId) => {
   );
 };
 
-const plusQuantity = async (searchCartId) => {
-  return await appDataSource.query(
-    `UPDATE carts
-        SET quantity = quantity +1
-        WHERE id = ?`,
-    [searchCartId]
-  );
-};
-
 const getUserCart = async (userId) => {
   const result = await appDataSource.query(
     `SELECT  
@@ -56,23 +47,18 @@ const getUserCart = async (userId) => {
   return result;
 };
 
-const oneDeleteCart = async (userId, cartId) => {
-  console.log(userId, cartId);
-  console.log(typeof cartId);
-
-  const oneDeleteCart = await appDataSource.query(
+const deleteOneCart = async (userId, cartId) => {
+  return await appDataSource.query(
     `DELETE FROM carts c
             WHERE c.user_id=? AND c.product_option_id = ?
             `,
     [userId, cartId]
   );
-  return oneDeleteCart;
 };
 
 module.exports = {
   addCart,
   searchCartId,
-  plusQuantity,
   getUserCart,
-  oneDeleteCart,
+  deleteOneCart,
 };

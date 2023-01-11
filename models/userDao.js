@@ -46,7 +46,7 @@ const getUserById = async (id) => {
     `
 		SELECT 
 			id,
-            username,
+      username,
 			name,
 			email,
 			password

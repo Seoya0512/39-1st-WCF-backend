@@ -1,8 +1,13 @@
 const productService = require("../services/productService");
-const { catchAsync } = require("../utils/error");
+const { catchAsync, raiseCustomError } = require("../utils/error");
 
 const getProductDetail = catchAsync(async (req, res) => {
   const productId = req.params.productId;
+
+  if (!productId) {
+    raiseCustomError("BAD_REQUEST", 400);
+  }
+
   const productDetail = await productService.getProductDetail(productId);
 
   return res.status(200).json({ data: productDetail });
