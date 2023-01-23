@@ -1,3 +1,4 @@
+const { appDataSource } = require("../models/dataSource");
 const cartDao = require("../models/cartDao");
 
 const addCart = async (userId, productOptionId, quantity) => {
@@ -15,6 +16,7 @@ const getUserCart = async (userId) => {
 };
 
 const oneDeleteCart = async (userId, cartId) => {
+  console.log(userId, cartId);
   return await cartDao.oneDeleteCart(userId, cartId);
 };
 
