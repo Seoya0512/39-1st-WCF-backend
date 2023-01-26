@@ -22,19 +22,19 @@ const getUserCart = catchAsync(async (req, res) => {
   res.status(200).json({ data: UserCart });
 });
 
-const deleteOneCart = catchAsync(async (req, res) => {
+const oneDeleteCart = catchAsync(async (req, res) => {
   const cartId = req.body.cartId;
 
   if (!cartId) {
     raiseCustomError("BAD_REQUEST", 400);
   }
 
-  await cartService.deleteOneCart(req.user.id, cartId);
+  await cartService.oneDeleteCart(req.user.id, cartId);
   res.status(200).json({ message: "SUCCESSFULLY_DELETED" });
 });
 
 module.exports = {
   addCart,
   getUserCart,
-  deleteOneCart,
+  oneDeleteCart,
 };
