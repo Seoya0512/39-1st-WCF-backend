@@ -1,14 +1,15 @@
-const userService = require("../services/userService");
-const { catchAsync, raiseCustomError } = require("../utils/error");
+import { userService } from "../services";
+import { catchAsync } from "../utils/error";
+import { Request, Response } from "express";
 
-const signUp = catchAsync(async (req, res) => {
+export const signUp = catchAsync(async (req: Request, res: Response) => {
   const { username, password, name, mobile_number, email, address } = req.body;
 
   if (!username || !password || !name || !mobile_number || !email || !address) {
-    raiseCustomError("KEY_ERROR", 400);
+    return res.status(400).json({ message: "KEY_ERROR" });
   }
 
-  const result = await userService.signUp(
+  await userService.signUp(
     username,
     password,
     name,
@@ -16,23 +17,19 @@ const signUp = catchAsync(async (req, res) => {
     email,
     address
   );
+
   return res.status(201).json({
     message: "SIGNUP_SUCCESS",
   });
 });
 
-const signIn = catchAsync(async (req, res) => {
+export const signIn = catchAsync(async (req: Request, res: Response) => {
   const { username, password } = req.body;
 
   if (!username || !password) {
-    raiseCustomError("KEY_ERROR", 400);
+    return res.status(400).json({ message: "KEY_ERROR" });
   }
 
   const accessToken = await userService.signIn(username, password);
   res.status(200).json({ accessToken });
 });
-
-module.exports = {
-  signUp,
-  signIn,
-};

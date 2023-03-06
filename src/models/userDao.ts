@@ -1,12 +1,12 @@
-const { appDataSource } = require("./dataSource");
+import { appDataSource } from "./dataSource";
 
-const createUser = async (
-  username,
-  password,
-  name,
-  mobile_number,
-  email,
-  address
+export const createUser = async (
+  username: string,
+  password: string,
+  name: string,
+  mobile_number: string,
+  email: string,
+  address: string
 ) => {
   await appDataSource.query(
     `INSERT INTO users(
@@ -22,17 +22,17 @@ const createUser = async (
   );
 };
 
-const getUserByUsername = async (username) => {
+export const getUserByUsername = async (username: string) => {
   const [user] = await appDataSource.query(
     `
 		SELECT 
-            id,
-            username,
-            password,
-            name,
-            mobile_number,
-            email,
-            address
+      id,
+      username,
+      password,
+      name,
+      mobile_number,
+      email,
+      address
 		FROM users
 		WHERE username=?`,
     [username]
@@ -41,12 +41,12 @@ const getUserByUsername = async (username) => {
   return user;
 };
 
-const getUserById = async (id) => {
+export const getUserById = async (id: number) => {
   const result = await appDataSource.query(
     `
 		SELECT 
 			id,
-            username,
+      username,
 			name,
 			email,
 			password
@@ -56,10 +56,4 @@ const getUserById = async (id) => {
   );
 
   return result[0];
-};
-
-module.exports = {
-  createUser,
-  getUserByUsername,
-  getUserById,
 };

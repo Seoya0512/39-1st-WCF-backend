@@ -1,6 +1,10 @@
-const { appDataSource } = require("./dataSource");
+import { appDataSource } from "./dataSource";
 
-const addCart = async (userId, productOptionId, quantity) => {
+export const addCart = async (
+  userId: string,
+  productOptionId: string,
+  quantity: string
+) => {
   const addCart = await appDataSource.query(
     `
         INSERT INTO carts(
@@ -13,7 +17,7 @@ const addCart = async (userId, productOptionId, quantity) => {
   return addCart[0];
 };
 
-const searchCartId = async (userId, productOptionId) => {
+export const searchCartId = async (userId: string, productOptionId: string) => {
   return await appDataSource.query(
     `SELECT
         id
@@ -23,7 +27,7 @@ const searchCartId = async (userId, productOptionId) => {
   );
 };
 
-const plusQuantity = async (searchCartId) => {
+export const plusQuantity = async (searchCartId: string) => {
   return await appDataSource.query(
     `UPDATE carts
         SET quantity = quantity +1
@@ -32,7 +36,7 @@ const plusQuantity = async (searchCartId) => {
   );
 };
 
-const getUserCart = async (userId) => {
+export const getUserCart = async (userId: string) => {
   const result = await appDataSource.query(
     `SELECT  
       carts.quantity as count,
@@ -56,23 +60,12 @@ const getUserCart = async (userId) => {
   return result;
 };
 
-const oneDeleteCart = async (userId, cartId) => {
-  console.log(userId, cartId);
-  console.log(typeof cartId);
-
+export const oneDeleteCart = async (userId: string, cartId: string) => {
   const oneDeleteCart = await appDataSource.query(
     `DELETE FROM carts c
-            WHERE c.user_id=? AND c.product_option_id = ?
+      WHERE c.user_id=? AND c.product_option_id = ?
             `,
     [userId, cartId]
   );
   return oneDeleteCart;
-};
-
-module.exports = {
-  addCart,
-  searchCartId,
-  plusQuantity,
-  getUserCart,
-  oneDeleteCart,
 };

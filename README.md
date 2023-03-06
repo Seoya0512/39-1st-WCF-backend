@@ -3,6 +3,7 @@
 1. [프로젝트 소개](#about-🎯)
 2. [프로젝트 회고](#review-📚)
 3. [기억하고 싶은 CODE](#code-⚒️)
+4. [리팩토링 진행 중](#refactoring-💡)
 
 <br>
 
@@ -132,3 +133,14 @@ params로 받아온 변수를 `나머지 매개변수`와 `객체 구조 분해 
 
 1. `sortMethod = "created_at"` : default 값을 지정, 변수가 있을 경우 수정됨
 2. `...filterOptions`는 나머지 변수들을 모두 filterOptions으로 지정된다. 이를 통해 1개의 필터링 조건이 들어오든 여러 개가 들어오든 자유자재로 처리할 수 있게 됐다.
+
+<br>
+<br>
+
+## Refactoring 💡
+
+타입스크립트를 공부하며 리팩토링 작업을 진행 중이며, 이후 계획들에 맞춰 변경할 예정입니다.
+
+1. `TypeScript` 로 변환하기 (진행 중)
+2. ORM을 사용해서 SQL Injection 강화하기 (계획)
+3. `Nest.js` 프레임 워크 사용하기 (최종)

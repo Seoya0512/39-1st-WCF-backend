@@ -1,7 +1,10 @@
-const { appDataSource } = require("../models/dataSource");
 const cartDao = require("../models/cartDao");
 
-const addCart = async (userId, productOptionId, quantity) => {
+export const addCart = async (
+  userId: string,
+  productOptionId: string,
+  quantity: string
+) => {
   const searchCartId = await cartDao.searchCartId(userId, productOptionId);
 
   if (searchCartId.length == 0) {
@@ -11,17 +14,11 @@ const addCart = async (userId, productOptionId, quantity) => {
   }
 };
 
-const getUserCart = async (userId) => {
+export const getUserCart = async (userId: string) => {
   return await cartDao.getUserCart(userId);
 };
 
-const oneDeleteCart = async (userId, cartId) => {
-  console.log(userId, cartId);
+export const oneDeleteCart = async (userId: string, cartId: string) => {
+  console.log(typeof userId, typeof cartId);
   return await cartDao.oneDeleteCart(userId, cartId);
-};
-
-module.exports = {
-  addCart,
-  getUserCart,
-  oneDeleteCart,
 };

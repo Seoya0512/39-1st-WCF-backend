@@ -1,10 +1,7 @@
-const { appDataSource } = require("./dataSource");
-const {
-  orderSet,
-  makeProductQueryBuilders,
-} = require("../models/productQueryBuilder");
+import { appDataSource } from "./dataSource";
+import { orderSet, makeProductQueryBuilders } from "./productQueryBuilder";
 
-const getProductDetail = async (productId) => {
+export const getProductDetail = async (productId) => {
   return await appDataSource.query(
     `
     SELECT
@@ -49,7 +46,7 @@ const getProductDetail = async (productId) => {
   );
 };
 
-const getProductList = async (params) => {
+export const getProductList = async (params) => {
   const { sortMethod = "created_at", ...filterOptions } = params;
 
   const whereClause = makeProductQueryBuilders(filterOptions);
@@ -73,9 +70,4 @@ const getProductList = async (params) => {
         `
   );
   return result;
-};
-
-module.exports = {
-  getProductDetail,
-  getProductList,
 };

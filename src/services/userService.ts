@@ -1,18 +1,18 @@
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 const secretKey = process.env.JWT_SECRET_KEY;
 
-const userDao = require("../models/userDao");
-const { raiseCustomError } = require("../utils/error");
-const { validateUsername, validatePw } = require("../utils/validate");
+import * as userDao from "../models/userDao";
+import { raiseCustomError } from "../utils/error";
+import { validatePw, validateUsername } from "../utils/validate";
 
-const signUp = async (
-  username,
-  password,
-  name,
-  mobile_number,
-  email,
-  address
+export const signUp = async (
+  username: string,
+  password: string,
+  name: string,
+  mobile_number: string,
+  email: string,
+  address: string
 ) => {
   validateUsername(username);
   validatePw(password);
@@ -30,7 +30,7 @@ const signUp = async (
   return user;
 };
 
-const signIn = async (username, password, res) => {
+export const signIn = async (username: string, password: string) => {
   validateUsername(username);
   validatePw(password);
 
@@ -47,12 +47,6 @@ const signIn = async (username, password, res) => {
   return accessToken;
 };
 
-const getUserById = async (id) => {
+export const getUserById = async (id) => {
   return await userDao.getUserById(id);
-};
-
-module.exports = {
-  signUp,
-  signIn,
-  getUserById,
 };
