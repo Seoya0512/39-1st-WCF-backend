@@ -1,9 +1,9 @@
-const cartDao = require("../models/cartDao");
+import * as cartDao from "../models/cartDao";
 
 export const addCart = async (
-  userId: string,
-  productOptionId: string,
-  quantity: string
+  userId: number,
+  productOptionId: number,
+  quantity: number
 ) => {
   const searchCartId = await cartDao.searchCartId(userId, productOptionId);
 
@@ -14,11 +14,10 @@ export const addCart = async (
   }
 };
 
-export const getUserCart = async (userId: string) => {
+export const getUserCart = async (userId: number) => {
   return await cartDao.getUserCart(userId);
 };
 
-export const oneDeleteCart = async (userId: string, cartId: string) => {
-  console.log(typeof userId, typeof cartId);
-  return await cartDao.oneDeleteCart(userId, cartId);
+export const deleteCart = async (userId: number, cartId: number) => {
+  return await cartDao.deleteCart(userId, cartId);
 };

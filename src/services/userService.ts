@@ -1,10 +1,11 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-const secretKey = process.env.JWT_SECRET_KEY;
 
 import * as userDao from "../models/userDao";
 import { raiseCustomError } from "../utils/error";
 import { validatePw, validateUsername } from "../utils/validate";
+
+const secretKey = process.env.JWT_SECRET_KEY;
 
 export const signUp = async (
   username: string,
@@ -47,6 +48,6 @@ export const signIn = async (username: string, password: string) => {
   return accessToken;
 };
 
-export const getUserById = async (id) => {
-  return await userDao.getUserById(id);
+export const getUserById = async (userId: number) => {
+  return await userDao.getUserById(userId);
 };

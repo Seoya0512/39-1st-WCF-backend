@@ -1,9 +1,9 @@
 import { appDataSource } from "./dataSource";
 
 export const addCart = async (
-  userId: string,
-  productOptionId: string,
-  quantity: string
+  userId: number,
+  productOptionId: number,
+  quantity: number
 ) => {
   const addCart = await appDataSource.query(
     `
@@ -17,7 +17,7 @@ export const addCart = async (
   return addCart[0];
 };
 
-export const searchCartId = async (userId: string, productOptionId: string) => {
+export const searchCartId = async (userId: number, productOptionId: number) => {
   return await appDataSource.query(
     `SELECT
         id
@@ -27,7 +27,7 @@ export const searchCartId = async (userId: string, productOptionId: string) => {
   );
 };
 
-export const plusQuantity = async (searchCartId: string) => {
+export const plusQuantity = async (searchCartId: number) => {
   return await appDataSource.query(
     `UPDATE carts
         SET quantity = quantity +1
@@ -36,7 +36,7 @@ export const plusQuantity = async (searchCartId: string) => {
   );
 };
 
-export const getUserCart = async (userId: string) => {
+export const getUserCart = async (userId: number) => {
   const result = await appDataSource.query(
     `SELECT  
       carts.quantity as count,
@@ -60,11 +60,11 @@ export const getUserCart = async (userId: string) => {
   return result;
 };
 
-export const oneDeleteCart = async (userId: string, cartId: string) => {
+export const deleteCart = async (userId: number, cartId: number) => {
   const oneDeleteCart = await appDataSource.query(
     `DELETE FROM carts c
-      WHERE c.user_id=? AND c.product_option_id = ?
-            `,
+     WHERE c.user_id=? AND c.product_option_id = ?
+    `,
     [userId, cartId]
   );
   return oneDeleteCart;

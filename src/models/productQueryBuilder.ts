@@ -1,9 +1,3 @@
-const orderSet = {
-  price_DESC: "price DESC",
-  price_ASC: "price ASC",
-  created_at: "created_at DESC",
-};
-
 const brandFilterBuilder = (value) => {
   return typeof value === "object"
     ? `brands.id IN (${value})`
@@ -19,7 +13,7 @@ const sizeFilterBuilder = (value) => {
 const priceFilterBuilder = (value) => {
   const arr = [];
   if (typeof value === "object") {
-    for (i of value) {
+    for (let i of value) {
       const priceList = i.split("~");
       const phrase = `price BETWEEN ${priceList[0]} AND ${priceList[1]}`;
       arr.push(phrase);
@@ -31,11 +25,11 @@ const priceFilterBuilder = (value) => {
   }
 };
 
-const subcategoryFilterBuilder = (value) => {
+const subcategoryFilterBuilder = (value: string) => {
   return `sub_category_id = ${value}`;
 };
 
-const makeProductQueryBuilders = (params) => {
+export const makeProductQueryBuilders = (filterOptions: object): string => {
   const builderSet = {
     subCategoryId: subcategoryFilterBuilder,
     brandId: brandFilterBuilder,
@@ -43,7 +37,7 @@ const makeProductQueryBuilders = (params) => {
     priceId: priceFilterBuilder,
   };
 
-  const wherePhrase = Object.entries(params).map(([key, value]) => {
+  const wherePhrase = Object.entries(filterOptions).map(([key, value]) => {
     return builderSet[key](value);
   });
 
@@ -54,4 +48,8 @@ const makeProductQueryBuilders = (params) => {
   }
 };
 
-module.exports = { orderSet, makeProductQueryBuilders };
+export const orderSet = {
+  price_DESC: "price DESC",
+  price_ASC: "price ASC",
+  created_at: "created_at DESC",
+};

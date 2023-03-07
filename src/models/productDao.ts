@@ -1,5 +1,6 @@
 import { appDataSource } from "./dataSource";
 import { orderSet, makeProductQueryBuilders } from "./productQueryBuilder";
+import type { Query } from "../services/productService";
 
 export const getProductDetail = async (productId) => {
   return await appDataSource.query(
@@ -46,7 +47,7 @@ export const getProductDetail = async (productId) => {
   );
 };
 
-export const getProductList = async (params) => {
+export const getProductList = async (params: Query) => {
   const { sortMethod = "created_at", ...filterOptions } = params;
 
   const whereClause = makeProductQueryBuilders(filterOptions);

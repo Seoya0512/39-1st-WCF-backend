@@ -8,6 +8,6 @@ import { cartRouter } from "./cartRouter";
 
 router.use("/users", userRouter);
 router.use("/products", productRouter);
-router.use("/cart", cartRouter);
+router.use("/carts", cartRouter);
 
 export { router };
